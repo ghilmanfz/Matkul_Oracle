@@ -17,7 +17,8 @@ This repository contains source code and exercises from the Oracle Database cour
 This project includes source code and assignments created during the Oracle Database course.
 
 ## Folder Structure
-- **PTM 5, 6, 7**: Contain specific practical tasks from the course.
+- **PTM 5, 6, 7, 8**: Contain specific practical tasks from the course.
+- **Tugas 8 and 9**: Contain pratice from the course.
 
 ## Requirements
 - Oracle Database setup

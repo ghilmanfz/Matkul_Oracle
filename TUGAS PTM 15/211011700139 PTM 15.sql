@@ -256,6 +256,9 @@ END;
 
 
 
+
+
+
 --source code lain yg barangkali dibutuhin
 
 
@@ -289,12 +292,6 @@ END;
 --FROM t_perkuliahan_211011700139 tp 
 --	INNER JOIN t_mahasiswa_211011700139 tm ON substr(tp.KELAS,3) = tm.KELAS 
 -- WHERE ID_PERKULIAHAN = 1;
-
-
-
-
-
-
 
 
 -- Perbaikan data, contoh just in case kalo Ternyata Database nya salah kelas,

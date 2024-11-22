@@ -1,3 +1,5 @@
+--1
+
 --create table t_mahasiswa_211011700139 
 create table t_mahasiswa_211011700139 (
 	nim NUMBER(20) Primary key,
@@ -10,6 +12,8 @@ ALTER TABLE t_mahasiswa_211011700139 ADD kelas varchar2(10);
 
 COMMIT
 
+
+--2
 --CREATE TABLE t_dosen_211011700139 (
 CREATE TABLE t_dosen_211011700139 (
 	nidos VARCHAR2(10) Primary key,
@@ -17,6 +21,7 @@ CREATE TABLE t_dosen_211011700139 (
 );
 COMMIT
 
+--3
 --CREATE TABLE T_MATA_KULIAH_211011700139 
 CREATE TABLE T_MATA_KULIAH_211011700139 (
 	kode_mk VARCHAR2(10) Primary key,
@@ -27,6 +32,7 @@ CREATE TABLE T_MATA_KULIAH_211011700139 (
 ALTER TABLE T_MATA_KULIAH_211011700139 ADD semester int;
 COMMIT
 
+--4
 --CREATE TABLE t_perkuliahan_211011700139
 CREATE TABLE t_perkuliahan_211011700139(
 	id_perkuliahan NUMBER Primary key,
@@ -46,7 +52,9 @@ CREATE TABLE t_perkuliahan_211011700139(
 
 ALTER TABLE t_perkuliahan_211011700139 ADD pertemuan integer;
 ALTER TABLE t_perkuliahan_211011700139 ADD kelas varchar2(10);
-  
+
+commit
+--5
 -- CREATE TABLE t_absensi_211011700139
 CREATE TABLE t_absensi_211011700139(
 	id_perkuliahan NUMBER ,
@@ -61,6 +69,7 @@ CREATE TABLE t_absensi_211011700139(
 		REFERENCES t_mahasiswa_211011700139(nim)
 );
 
+--6
 --CREATE TABLE t_nilai_211011700139 
 CREATE TABLE t_nilai_211011700139 (
 	kode_mk VARCHAR2(10) ,
@@ -79,7 +88,7 @@ CREATE TABLE t_nilai_211011700139 (
 
 COMMIT
 
-
+--7
 -- Insert mahasiswa 
 INSERT ALL
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700294, 'ABDUL GAFAR', '07SIFM001')
@@ -119,7 +128,7 @@ INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700003, 'SUPRIYAND
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700144, 'YOSUA VERREL ANDERSEN', '07SIFM001')
 SELECT 1 FROM dual;
 
-
+--8
 -- dosen 
 INSERT ALL 
 into t_dosen_211011700139 (nidos,nama) values ('426079401','Liestiani Hasan')
@@ -130,6 +139,7 @@ into t_dosen_211011700139 (nidos,nama) values ('411099202','Ahmad Asep Suhendi')
 into t_dosen_211011700139 (nidos,nama) values ('407079403','Annah Juliana')
 SELECT 1 FROM dual;
 
+--9
 -- matakuliah
 INSERT ALL 
 into T_MATA_KULIAH_211011700139 (kode_mk,nama_mk,sks,semester) values ('22SIF0442','Testing dan Implementasi Sistem',2,3)
@@ -148,6 +158,7 @@ into T_MATA_KULIAH_211011700139 (kode_mk,nama_mk,sks,semester) values ('KBMT04',
 into T_MATA_KULIAH_211011700139 (kode_mk,nama_mk,sks,semester) values ('KBMT05','Infrastruktur IT',3,7)
 SELECT 1 FROM dual;
 
+--10
 -- perkuliahan
 INSERT ALL 
 into t_perkuliahan_211011700139 values (1,TO_DATE('2024-09-09','YYYY-MM-DD'),TO_TIMESTAMP('2024-09-09 06:10', 'YYYY-MM-DD HH24:MI:SS'),TO_TIMESTAMP('2024-09-09 08:10', 'YYYY-MM-DD HH24:MI:SS'),'V.919','KB1207','411099202',1,'07SIFM001')
@@ -184,7 +195,7 @@ COMMIT;
 
 
 
-
+--11
 --CREATE OR REPLACE PROCEDURE show_perkuliahan_details
 CREATE OR REPLACE PROCEDURE show_perkuliahan_details AS
     vID_PERKULIAHAN NUMBER := 9;
@@ -249,6 +260,7 @@ END;
 
 
 
+--12
 --running pake ini (buka view, pilih database output, pilih enable database output for connection, trus run source  code yg dibawah ini)
 BEGIN
     show_perkuliahan_details;

@@ -1,3 +1,4 @@
+--create table t_mahasiswa_211011700139 
 create table t_mahasiswa_211011700139 (
 	nim NUMBER(20) Primary key,
 	nama VARCHAR2(100) ,
@@ -9,12 +10,14 @@ ALTER TABLE t_mahasiswa_211011700139 ADD kelas varchar2(10);
 
 COMMIT
 
+--CREATE TABLE t_dosen_211011700139 (
 CREATE TABLE t_dosen_211011700139 (
 	nidos VARCHAR2(10) Primary key,
 	nama VARCHAR2(100)
 );
 COMMIT
 
+--CREATE TABLE T_MATA_KULIAH_211011700139 
 CREATE TABLE T_MATA_KULIAH_211011700139 (
 	kode_mk VARCHAR2(10) Primary key,
 	nama_mk VARCHAR2(100) ,
@@ -24,6 +27,7 @@ CREATE TABLE T_MATA_KULIAH_211011700139 (
 ALTER TABLE T_MATA_KULIAH_211011700139 ADD semester int;
 COMMIT
 
+--CREATE TABLE t_perkuliahan_211011700139
 CREATE TABLE t_perkuliahan_211011700139(
 	id_perkuliahan NUMBER Primary key,
 	tanggal DATE ,
@@ -42,16 +46,8 @@ CREATE TABLE t_perkuliahan_211011700139(
 
 ALTER TABLE t_perkuliahan_211011700139 ADD pertemuan integer;
 ALTER TABLE t_perkuliahan_211011700139 ADD kelas varchar2(10);
-
-
--- or
---ALTER TABLE t_perkuliahan_211011700139
---  ADD CONSTRAINT fk_t_perkuliahan_211011700139_t_mk FOREIGN KEY (kode_mk) REFERENCES T_MATA_KULIAH_211011700139(kode_mk)  ,
---  ADD CONSTRAINT fk_t_perkuliahan_211011700139_t_dosen_211011700139 FOREIGN KEY (dosen_pengampu) REFERENCES t_dosen_211011700139(nidos)
-
--- end or  
   
-  
+-- CREATE TABLE t_absensi_211011700139
 CREATE TABLE t_absensi_211011700139(
 	id_perkuliahan NUMBER ,
 	nim NUMBER(20) ,
@@ -65,6 +61,7 @@ CREATE TABLE t_absensi_211011700139(
 		REFERENCES t_mahasiswa_211011700139(nim)
 );
 
+--CREATE TABLE t_nilai_211011700139 
 CREATE TABLE t_nilai_211011700139 (
 	kode_mk VARCHAR2(10) ,
 	dosen_pengampu VARCHAR2(10) ,
@@ -83,10 +80,7 @@ CREATE TABLE t_nilai_211011700139 (
 COMMIT
 
 
---START INSERT
--- INSERT TABLE ----------------------------------------
--- mahasiswa
--- Insert students from the image into t_mahasiswa
+-- Insert mahasiswa 
 INSERT ALL
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700294, 'ABDUL GAFAR', '07SIFM001')
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700318, 'ADE TRI SYAHRANI', '07SIFM001')
@@ -108,7 +102,7 @@ INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700121, 'HILYATIS 
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700344, 'IKHWAN ABDI LEGIA', '07SIFM001')
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700064, 'INES MAHFIDA', '07SIFM001')
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700368, 'KADE RAHMAT YASSIN', '07SIFM001')
-INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700183, 'KHOIRU NISA’ AMRIANI', '07SIFM001')
+INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700183, 'KHOIRU NISAâ€™ AMRIANI', '07SIFM001')
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700292, 'MUHAMMAD AZRIEL CHANIAGO', '07SIFM001')
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700116, 'MUHAMMAD FADHLI', '07SIFM001')
 INTO t_mahasiswa_211011700139(nim, nama, kelas) VALUES (211011700016, 'MUHAMMAD FARZHA OCTAVARERA', '07SIFM001')
@@ -181,34 +175,6 @@ SELECT 1 FROM dual;
 
 COMMIT;
 
--- insert absensi ---------------------------------------------
---INSERT INTO t_absensi_211011700139 
---SELECT ID_PERKULIAHAN
---	, tm.NIM
---	, a.JAM_MULAI AS JAM_MASUK, 'Hadir' AS STATUS
---FROM t_perkuliahan_211011700139 a
---	INNER JOIN t_mahasiswa_211011700139 tm  ON ltrim(a.KELAS,'07') = tm.KELAS
---WHERE ID_PERKULIAHAN = 1;
-
---SELECT ta.*, JAM_MASUK + INTERVAL '20' MINUTE  
---FROM t_absensi_211011700139 ta 
-
--- end insert absensi ---------------------------------------------
-
-
---  insert nilai dummy ---------------------------------------------
-
-INSERT INTO t_nilai_211011700139 (KODE_MK, DOSEN_PENGAMPU, NIM
-	, ABSENSI, TUGAS, UTS, UAS)
-	
-SELECT KODE_MK, DOSEN_PENGAMPU, NIM
-	, round(dbms_random.value(15,22)) AS absensi
-	, round(dbms_random.value(60,99)) AS tugas
-	, round(dbms_random.value(60,99)) AS uts
-	, round(dbms_random.value(60,99)) AS uas
-FROM t_perkuliahan_211011700139 tp 
-	INNER JOIN t_mahasiswa_211011700139 tm ON substr(tp.KELAS,3) = tm.KELAS 
-WHERE ID_PERKULIAHAN = 1;
 
 
 
@@ -219,38 +185,7 @@ WHERE ID_PERKULIAHAN = 1;
 
 
 
-
-
-
-
---CLEAR TABLE
-
-drop table t_mahasiswa_211011700139;
-drop TABLE t_dosen_211011700139;
-drop table T_MATA_KULIAH_211011700139;
-drop table t_absensi_211011700139;
-drop table t_nilai_211011700139;
-drop table t_perkuliahan_211011700139;
-
-ALTER TABLE t_perkuliahan_211011700139 DROP CONSTRAINT fk_t_perkuliahan_211011700139_t_dosen_211011700139;
-ALTER TABLE t_nilai_211011700139 DROP CONSTRAINT fk_t_nilai_211011700139_dosen;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--CREATE OR REPLACE PROCEDURE show_perkuliahan_details
 CREATE OR REPLACE PROCEDURE show_perkuliahan_details AS
     vID_PERKULIAHAN NUMBER := 9;
     vTANGGAL VARCHAR2(100);
@@ -262,6 +197,7 @@ CREATE OR REPLACE PROCEDURE show_perkuliahan_details AS
     vNAMA_MK VARCHAR2(100);
     vPERTEMUAN NUMBER;
 
+--cursor
     CURSOR t_mahasiswa_curr IS 
         SELECT tm.nim, tm.nama 
         FROM t_perkuliahan_211011700139 tp
@@ -271,8 +207,8 @@ CREATE OR REPLACE PROCEDURE show_perkuliahan_details AS
 
     t_mahasiswa_rec t_mahasiswa_curr%ROWTYPE;
 BEGIN
-    -- Retrieve class session details
-    SELECT TO_CHAR(tp.tanggal, 'DD-MM-YYYY') AS tanggal, 
+
+SELECT TO_CHAR(tp.tanggal, 'DD-MM-YYYY') AS tanggal, 
            tp.kelas, tp.ruangan,
            TO_CHAR(tp.jam_mulai, 'HH24:MI') AS jam_mulai, 
            TO_CHAR(tp.jam_selesai, 'HH24:MI') AS jam_selesai,
@@ -297,7 +233,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE(RPAD('NIM', 20) || RPAD('Nama Mahasiswa', 50));
     DBMS_OUTPUT.PUT_LINE(RPAD('-', 100, '-'));
 
-    -- Open cursor and print student list
+    -- Open cursor dan print student list nya
     OPEN t_mahasiswa_curr;
     LOOP
         FETCH t_mahasiswa_curr INTO t_mahasiswa_rec;
@@ -306,20 +242,80 @@ BEGIN
     END LOOP;
     CLOSE t_mahasiswa_curr;
 
-    -- Print footer
+    -- Print footernya
     DBMS_OUTPUT.PUT_LINE(RPAD('=', 100, '='));
 END;
 
--- Perbaikan, Ternyata Database nya salah kelas, jadi ga muncul pas dipanggil 
-UPDATE t_mahasiswa_211011700139
-SET kelas = '07SIFM001'
-WHERE kelas = '07SIFP001';
-COMMIT;
 
 
 
+--running pake ini (buka view, pilih database output, pilih enable database output for connection, trus run source  code yg dibawah ini)
 BEGIN
     show_perkuliahan_details;
 END;
+
+
+
+--source code lain yg barangkali dibutuhin
+
+
+
+-- insert absensi(jangan di pake) ---------------------------------------------
+--INSERT INTO t_absensi_211011700139 
+--SELECT ID_PERKULIAHAN
+--	, tm.NIM
+--	, a.JAM_MULAI AS JAM_MASUK, 'Hadir' AS STATUS
+--FROM t_perkuliahan_211011700139 a
+--	INNER JOIN t_mahasiswa_211011700139 tm  ON ltrim(a.KELAS,'07') = tm.KELAS
+--WHERE ID_PERKULIAHAN = 1;
+
+--SELECT ta.*, JAM_MASUK + INTERVAL '20' MINUTE  
+--FROM t_absensi_211011700139 ta 
+
+-- end insert absensi ---------------------------------------------
+
+
+-- insert niai(jangan di pake) ---------------------------------------------
+--  insert nilai dummy ---------------------------------------------
+
+--INSERT INTO t_nilai_211011700139 (KODE_MK, DOSEN_PENGAMPU, NIM
+--	, ABSENSI, TUGAS, UTS, UAS)
+	
+--SELECT KODE_MK, DOSEN_PENGAMPU, NIM
+--	, round(dbms_random.value(15,22)) AS absensi
+--	, round(dbms_random.value(60,99)) AS tugas
+--	, round(dbms_random.value(60,99)) AS uts
+--	, round(dbms_random.value(60,99)) AS uas
+--FROM t_perkuliahan_211011700139 tp 
+--	INNER JOIN t_mahasiswa_211011700139 tm ON substr(tp.KELAS,3) = tm.KELAS 
+-- WHERE ID_PERKULIAHAN = 1;
+
+
+
+
+
+
+
+
+-- Perbaikan data, contoh just in case kalo Ternyata Database nya salah kelas,
+-- UPDATE t_mahasiswa_211011700139
+-- SET kelas = '07SIFM001'
+-- WHERE kelas = '07SIFP001';
+-- COMMIT;
+
+
+
+--CLEAR TABLE (pake ini kalo mau dari awal lagi + drop constraint)
+
+-- drop table t_mahasiswa_211011700139;
+-- drop TABLE t_dosen_211011700139;
+-- drop table T_MATA_KULIAH_211011700139;
+-- drop table t_absensi_211011700139;
+-- drop table t_nilai_211011700139;
+-- drop table t_perkuliahan_211011700139;
+
+-- ALTER TABLE t_perkuliahan_211011700139 DROP CONSTRAINT fk_t_perkuliahan_211011700139_t_dosen_211011700139;
+-- ALTER TABLE t_nilai_211011700139 DROP CONSTRAINT fk_t_nilai_211011700139_dosen;
+
 
 
